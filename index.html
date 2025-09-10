@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Персанальное Порфолио - Asylbek Murzagaliev</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <link rel="icon" href="logo.png" type="image/png">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF2E63',
+                        secondary: '#00F5FF'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '4px',
+                        DEFAULT: '8px',
+                        'md': '12px',
+                        'lg': '16px',
+                        'xl': '20px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                        'full': '9999px',
+                        'button': '8px'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+    <style>
+        :where([class^="ri-"])::before {
+            content: "\f3c2";
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0A0A0F;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .font-space-grotesk {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .hero-bg {
+            background: linear-gradient(135deg, #0A0A0F 0%, #1A1A2E 50%, #16213E 100%);
+            position: relative;
+        }
+
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(255, 46, 99, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(0, 245, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(157, 78, 221, 0.05) 0%, transparent 50%);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #FF2E63 0%, #00F5FF 50%, #9D4EDD 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-shift 3s ease-in-out infinite;
+        }
+
+        @keyframes gradient-shift {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .neomorphic {
+            background: #0F0F1A;
+            box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.5), -8px -8px 16px rgba(255, 255, 255, 0.02);
+        }
+
+        .neon-glow {
+            box-shadow: 0 0 20px rgba(255, 46, 99, 0.3), 0 0 40px rgba(255, 46, 99, 0.2), 0 0 60px rgba(255, 46, 99, 0.1);
+        }
+
+        .neon-glow-blue {
+            box-shadow: 0 0 20px rgba(0, 245, 255, 0.3), 0 0 40px rgba(0, 245, 255, 0.2), 0 0 60px rgba(0, 245, 255, 0.1);
+        }
+
+        .floating-element {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(2) {
+            animation-delay: -2s;
+        }
+
+        .floating-element:nth-child(3) {
+            animation-delay: -4s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            33% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+
+            66% {
+                transform: translateY(-10px) rotate(-5deg);
+            }
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 46, 99, 0.2);
+        }
+
+        .filter-btn {
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #FF2E63, #00F5FF);
+            color: #ffffff;
+        }
+
+        .portfolio-item {
+            transition: all 0.3s ease;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .portfolio-item.hidden {
+            opacity: 0;
+            transform: scale(0.8);
+            pointer-events: none;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slider-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slider-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .theme-toggle {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle::before {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #FF2E63, #00F5FF);
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle.active::before {
+            transform: translateX(30px);
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #FF2E63, #00F5FF, #9D4EDD);
+            z-index: 1000;
+            transition: width 0.1s ease;
+        }
+
+        .light-theme {
+            background: #629deb;
+            color: #1f2937;
+        }
+
+        .light-theme .hero-bg {
+            background: linear-gradient(135deg, #74a1cd 0%, #629deb 50%, #c44949 100%);
+        }
+
+        .light-theme .glass-effect {
+            background: rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .light-theme .neomorphic {
+            background: #f1f5f9;
+            box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.1), -8px -8px 16px rgba(255, 255, 255, 0.8);
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.125rem;
+            }
+
+            .service-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-effect">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="font-space-grotesk text-xl font-bold gradient-text">
+                    AM
+                </div>
+
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-white hover:text-primary transition-colors">Главная</a>
+                    <a href="#services" class="text-white hover:text-primary transition-colors">Услуги</a>
+                    <a href="#portfolio" class="text-white hover:text-primary transition-colors">Портфолио</a>
+                    <a href="#reviews" class="text-white hover:text-primary transition-colors">Отзывы</a>
+                    <a href="#contact" class="text-white hover:text-primary transition-colors">Контакты</a>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <div class="theme-toggle" id="themeToggle"></div>
+                    <button class="md:hidden w-8 h-8 flex items-center justify-center">
+                        <i class="ri-menu-line text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="hero-bg min-h-screen flex items-center justify-center relative">
+        <div
+            class="floating-element absolute top-20 left-10 w-20 h-20 rounded-full bg-gradient-to-r from-primary to-secondary opacity-20">
+        </div>
+        <div
+            class="floating-element absolute top-40 right-20 w-16 h-16 rounded-full bg-gradient-to-r from-secondary to-purple-500 opacity-20">
+        </div>
+        <div
+            class="floating-element absolute bottom-20 left-1/4 w-12 h-12 rounded-full bg-gradient-to-r from-purple-500 to-primary opacity-20">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <h1
+                class="hero-title font-space-grotesk text-5xl md:text-7xl font-bold mb-6 gradient-text animate-on-scroll">
+                Мурзагалиев Асылбек<br>Веб-Раработчик
+            </h1>
+            <p class="hero-subtitle text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto animate-on-scroll">
+                Я — начинающий веб-разработчик, студент Атырауского политехнического колледжа. Интересуюсь созданием
+                современных и удобных веб-сайтов. Постоянно изучаю новые технологии и стремлюсь развивать практические
+                навыки в HTML, CSS и JavaScript.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center animate-on-scroll">
+                <button
+                    class="px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white font-semibold !rounded-button neon-glow hover:scale-105 transition-transform whitespace-nowrap"
+                    onclick="downloadResume()">
+                    Скачать резюме
+                </button>
+                <a href="#projects">
+                    <button
+                        class="px-8 py-4 glass-effect text-white font-semibold !rounded-button hover:bg-white hover:bg-opacity-10 transition-all whitespace-nowrap">
+                        Посмотреть работы
+                    </button>
+                </a>
+            </div>
+        </div>
+    </section>
+    <section id="services" class="py-20 bg-gradient-to-b from-transparent to-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 animate-on-scroll">
+                <h2 class="font-space-grotesk text-4xl md:text-5xl font-bold mb-6 gradient-text">
+                    Мой услуги
+                </h2>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                    Я предлагаю полный спектр услуг для создания яркого и запоминающегося цифрового присутствия вашего
+                    бренда.
+                </p>
+            </div>
+
+            <div class="service-grid grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass-effect p-8 rounded-2xl card-hover animate-on-scroll">
+                    <div
+                        class="w-16 h-16 flex items-center justify-center mb-6 bg-gradient-to-r from-primary to-secondary rounded-xl">
+                        <i class="ri-palette-line text-2xl text-white"></i>
+                    </div>
+                    <h3 class="font-space-grotesk text-2xl font-bold mb-4 text-white">Цифровой дизайн</h3>
+                    <p class="text-gray-300 mb-6">
+                        Я создаю визуально привлекательные дизайны, которые сразу привлекают внимание и точно передают
+                        суть бренда.
+                    </p>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-center">
+                            <i class="ri-check-line text-primary mr-2"></i>
+                            Веб-дизайн
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ri-check-line text-primary mr-2"></i>
+                            Мобильный дизайн
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ri-check-line text-primary mr-2"></i>
+                            Графический дизайн
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="glass-effect p-8 rounded-2xl card-hover animate-on-scroll">
+                    <div
+                        class="w-16 h-16 flex items-center justify-center mb-6 bg-gradient-to-r from-secondary to-purple-500 rounded-xl">
+                        <i class="ri-award-line text-2xl text-white"></i>
+                    </div>
+                    <h3 class="font-space-grotesk text-2xl font-bold mb-4 text-white">Брендинг</h3>
+                    <p class="text-gray-300 mb-6">
+                        Я разрабатываю уникальную айдентику, которая отражает ценности и миссию вашей компании.
+                    </p>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-center">
+                            <i class="ri-check-line text-secondary mr-2"></i>
+                            Логотип и фирменный стиль
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ri-check-line text-secondary mr-2"></i>
+                            Брендбук
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ri-check-line text-secondary mr-2"></i>
+                            Упаковка
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="glass-effect p-8 rounded-2xl card-hover animate-on-scroll">
+                    <div
+                        class="w-16 h-16 flex items-center justify-center mb-6 bg-gradient-to-r from-purple-500 to-primary rounded-xl">
+                        <i class="ri-smartphone-line text-2xl text-white"></i>
+                    </div>
+                    <h3 class="font-space-grotesk text-2xl font-bold mb-4 text-white">Веб-разработка</h3>
+                    <p class="text-gray-300 mb-6">
+                        Создаю простые и удобные одностраничные сайты, которые помогают презентовать компанию или личный
+                        бренд.
+                    </p>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-center">
+                            <i class="ri-check-line text-purple-400 mr-2"></i>
+                            Адаптивная верстка
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ri-check-line text-purple-400 mr-2"></i>
+                            Чистый HTML и CSS
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ri-check-line text-purple-400 mr-2"></i>
+                            Поддержка мобильных устройств
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="text-center mb-16 animate-on-scroll">
+                <h2 class="font-space-grotesk text-4xl md:text-5xl font-bold mb-6 gradient-text">
+                    Портфолио
+                </h2>
+
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                    Избранные проекты, которые демонстрируют наш подход к созданию исключительных цифровых решений
+                </p>
+            </div>
+
+
+            <div class="flex flex-wrap justify-center gap-4 mb-12 animate-on-scroll" id="projects">
+                <button class="filter-btn px-6 py-3 rounded-full text-white font-medium active" data-filter="all">
+                    Все проекты
+                </button>
+                <button class="filter-btn px-6 py-3 rounded-full text-white font-medium" data-filter="web">
+                    Веб-дизайн
+                </button>
+                <button class="filter-btn px-6 py-3 rounded-full text-white font-medium" data-filter="branding">
+                    Брендинг
+                </button>
+            </div>
+
+            <div class="portfolio-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="portfolio-item glass-effect rounded-2xl overflow-hidden card-hover cursor-pointer"
+                    data-category="web" data-project="1">
+                    <img src="pr-img1.png" alt="Веб-проект 1" class="w-full h-48 object-cover object-top">
+                    <div class="p-6">
+                        <h3 class="font-space-grotesk text-xl font-bold mb-2 text-white">Lunaria-WebSite</h3>
+                        <p class="text-gray-400 mb-4">Создаются уникальные цифровые решения, которые помогают брендам
+                            выделяться в современном технологическом мире.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span
+                                class="px-3 py-1 bg-primary bg-opacity-20 text-primary rounded-full text-sm">HTML</span>
+                            <span
+                                class="px-3 py-1 bg-secondary bg-opacity-20 text-secondary rounded-full text-sm">Веб-дизайн</span>
+                            <span
+                                class="px-3 py-1 bg-primary bg-opacity-20 text-primary rounded-full text-sm">JavaScript</span>
+                            <span
+                                class="px-3 py-1 bg-secondary bg-opacity-20 text-secondary rounded-full text-sm">CSS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item glass-effect rounded-2xl overflow-hidden card-hover cursor-pointer"
+                    data-category="web" data-project="2">
+                    <img src="pr-img2.png" alt="Мобильное приложение 1" class="w-full h-48 object-cover object-top">
+                    <div class="p-6">
+                        <h3 class="font-space-grotesk text-xl font-bold mb-2 text-white">Major-in-Programming</h3>
+                        <p class="text-gray-400 mb-4">Программист — разработка программ, сайтов и работа с информацией
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span
+                                class="px-3 py-1 bg-primary bg-opacity-20 text-primary rounded-full text-sm">HTML</span>
+                            <span
+                                class="px-3 py-1 bg-secondary bg-opacity-20 text-secondary rounded-full text-sm">Веб-дизайн</span>
+                            <span
+                                class="px-3 py-1 bg-primary bg-opacity-20 text-primary rounded-full text-sm">JavaScript</span>
+                            <span
+                                class="px-3 py-1 bg-secondary bg-opacity-20 text-secondary rounded-full text-sm">CSS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item glass-effect rounded-2xl overflow-hidden card-hover cursor-pointer"
+                    data-category="branding" data-project="3">
+                    <img src="pr-img6.png" alt="Брендинг проект 1" class="w-full h-48 object-cover object-top">
+                    <div class="p-6">
+                        <h3 class="font-space-grotesk text-xl font-bold mb-2 text-white">Atyrau Polytech Branding
+                            Logotip</h3>
+                        <p class="text-gray-400 mb-4">Дизайн сочетает волны Каспия и индустриальные элементы, а
+                            сине-бело-золотая палитра символизирует знания и развитие.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span
+                                class="px-3 py-1 bg-secondary bg-opacity-20 text-secondary rounded-full text-sm">Брендинг</span>
+                            <span
+                                class="px-3 py-1 bg-purple-500 bg-opacity-20 text-purple-400 rounded-full text-sm">Логотип</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item glass-effect rounded-2xl overflow-hidden card-hover cursor-pointer"
+                    data-category="web" data-project="4">
+                    <img src="pr-img4.png" alt="Веб-проект 2" class="w-full h-48 object-cover object-top">
+                    <div class="p-6">
+                        <h3 class="font-space-grotesk text-xl font-bold mb-2 text-white">Shaping Tomorrow with Code</h3>
+                        <p class="text-gray-400 mb-4">Программирование — основа будущего. Код создаёт технологии,
+                            которые меняют мир и открывают новые возможности.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span
+                                class="px-3 py-1 bg-primary bg-opacity-20 text-primary rounded-full text-sm">HTML</span>
+                            <span
+                                class="px-3 py-1 bg-secondary bg-opacity-20 text-secondary rounded-full text-sm">Веб-дизайн</span>
+                            <span
+                                class="px-3 py-1 bg-primary bg-opacity-20 text-primary rounded-full text-sm">JavaScript</span>
+                            <span
+                                class="px-3 py-1 bg-secondary bg-opacity-20 text-secondary rounded-full text-sm">CSS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item glass-effect rounded-2xl overflow-hidden card-hover cursor-pointer"
+                    data-category="web" data-project="5">
+                    <img src="pr-img3.png" alt="Мобильное приложение 2" class="w-full h-48 object-cover object-top">
+                    <div class="p-6">
+                        <h3 class="font-space-grotesk text-xl font-bold mb-2 text-white">The Profession of the Future
+                        </h3>
+                        <p class="text-gray-400 mb-4">Программист — это специалист, который разрабатывает программное
+                            обеспечение, сайты и приложения, создавая инструменты для удобства и развития цифрового
+                            мира.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span
+                                class="px-3 py-1 bg-primary bg-opacity-20 text-primary rounded-full text-sm">HTML</span>
+                            <span
+                                class="px-3 py-1 bg-secondary bg-opacity-20 text-secondary rounded-full text-sm">Веб-дизайн</span>
+                            <span
+                                class="px-3 py-1 bg-primary bg-opacity-20 text-primary rounded-full text-sm">JavaScript</span>
+                            <span
+                                class="px-3 py-1 bg-secondary bg-opacity-20 text-secondary rounded-full text-sm">CSS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item glass-effect rounded-2xl overflow-hidden card-hover cursor-pointer"
+                    data-category="branding" data-project="6">
+                    <img src="pr-img5.png" alt="Брендинг проект 2" class="w-full h-48 object-cover object-top">
+                    <div class="p-6">
+                        <h3 class="font-space-grotesk text-xl font-bold mb-2 text-white">Emblem High College</h3>
+                        <p class="text-gray-400 mb-4">Емблема создана специально к Дню молодых специалистов,
+                            символизируя развитие и единство.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span
+                                class="px-3 py-1 bg-secondary bg-opacity-20 text-secondary rounded-full text-sm">Брендинг</span>
+                            <span
+                                class="px-3 py-1 bg-purple-500 bg-opacity-20 text-purple-400 rounded-full text-sm">Emblem</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="reviews" class="py-20 bg-gradient-to-b from-transparent to-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 animate-on-scroll">
+                <h2 class="font-space-grotesk text-4xl md:text-5xl font-bold mb-6 gradient-text">
+                    Мои преподаватели
+                </h2>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                    Краткие отзывы преподавателей о моей учёбе и развитии.
+                </p>
+            </div>
+
+            <div class="slider-container animate-on-scroll">
+                <div class="slider-track" id="reviewsSlider">
+                    <div class="min-w-full md:min-w-1/2 lg:min-w-1/3 px-4">
+                        <div class="glass-effect p-8 rounded-2xl h-full">
+                            <div class="flex items-center mb-6">
+                                <img src="bez.jpeg" alt="Анна Петрова"
+                                    class="w-12 h-12 rounded-full mr-4 object-cover object-top">
+                                <div>
+                                    <h4 class="font-space-grotesk font-bold text-white">Акбисен Бекзат</h4>
+                                    <p class="text-gray-400 text-sm">Backend-разработчик , работатехник</p>
+                                </div>
+                            </div>
+                            <div class="flex mb-4">
+                                <i class="ri-star-fill text-yellow-400"></i>
+                                <i class="ri-star-fill text-yellow-400"></i>
+                                <i class="ri-star-fill text-yellow-400"></i>
+                                <i class="ri-star-fill text-yellow-400"></i>
+                                <i class="ri-star-fill text-yellow-400"></i>
+                            </div>
+                            <p class="text-gray-300">ы
+                                «Студент уверенно осваивает основы программирования, разбирается в логике работы
+                                программ и старается применять знания на практике».
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="min-w-full md:min-w-1/2 lg:min-w-1/3 px-4">
+                        <div class="glass-effect p-8 rounded-2xl h-full">
+                            <div class="flex items-center mb-6">
+                                <img src="ai.jpg" alt="Михаил Волков"
+                                    class="w-12 h-12 rounded-full mr-4 object-cover object-top">
+                                <div>
+                                    <h4 class="font-space-grotesk font-bold text-white">Бауржанова Айдана</h4>
+                                    <p class="text-gray-400 text-sm">Спец по веб-разработке</p>
+                                </div>
+                            </div>
+                            <div class="flex mb-4">
+                                <i class="ri-star-fill text-yellow-400"></i>
+                                <i class="ri-star-fill text-yellow-400"></i>
+                                <i class="ri-star-fill text-yellow-400"></i>
+                                <i class="ri-star-fill text-yellow-400"></i>
+                                <i class="ri-star-fill text-yellow-400"></i>
+                            </div>
+                            <p class="text-gray-300">
+                                «Студент показывает стабильный прогресс в области веб-разработки: умеет применять HTML и
+                                CSS на практике, проявляет внимательность к деталям и способен выполнять задания в
+                                установленные сроки».
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-center mt-8 space-x-2">
+                <button class="w-3 h-3 rounded-full bg-primary slider-dot active" data-slide="0"></button>
+                <button class="w-3 h-3 rounded-full bg-gray-600 slider-dot" data-slide="1"></button>
+                <button class="w-3 h-3 rounded-full bg-gray-600 slider-dot" data-slide="2"></button>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 animate-on-scroll">
+                <h2 class="font-space-grotesk text-4xl md:text-5xl font-bold mb-6 gradient-text">
+                    Связаться со мной
+                </h2>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                    Готовы начать ваш следующий проект? Напишите мне, и мы вместе обсудим, как воплотить ваши идеи в
+                    жизнь.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="animate-on-scroll">
+                    <form class="space-y-6">
+
+                        <input type="hidden" name="access_key" value="75a23463-4717-4139-9264-32342a313dce">
+                        <input type="checkbox" name="botcheck" style="display:none" />
+
+                        <div>
+                            <label class="block text-white font-medium mb-2">Имя</label>
+                            <input type="text"
+                                class="w-full px-4 py-3 neomorphic rounded-lg text-white bg-transparent border-none focus:outline-none focus:ring-2 focus:ring-primary"
+                                placeholder="Ваше имя">
+                        </div>
+                        <div>
+                            <label class="block text-white font-medium mb-2">Email</label>
+                            <input type="email"
+                                class="w-full px-4 py-3 neomorphic rounded-lg text-white bg-transparent border-none focus:outline-none focus:ring-2 focus:ring-primary"
+                                placeholder="your@email.com">
+                        </div>
+                        <div>
+                            <label class="block text-white font-medium mb-2">Тип проекта</label>
+                            <div class="relative">
+                                <button type="button"
+                                    class="w-full px-4 py-3 neomorphic rounded-lg text-white bg-transparent border-none focus:outline-none focus:ring-2 focus:ring-primary text-left flex items-center justify-between"
+                                    id="projectTypeBtn">
+                                    <span>Выберите тип проекта</span>
+                                    <i class="ri-arrow-down-s-line"></i>
+                                </button>
+                                <div class="absolute top-full left-0 right-0 mt-2 glass-effect rounded-lg overflow-hidden hidden"
+                                    id="projectTypeDropdown">
+                                    <div class="p-2 hover:bg-white hover:bg-opacity-10 cursor-pointer" data-value="web">
+                                        Веб-дизайн</div>
+                                    <div class="p-2 hover:bg-white hover:bg-opacity-10 cursor-pointer"
+                                        data-value="mobile">Мобильное приложение</div>
+                                    <div class="p-2 hover:bg-white hover:bg-opacity-10 cursor-pointer"
+                                        data-value="branding">Брендинг</div>
+                                    <div class="p-2 hover:bg-white hover:bg-opacity-10 cursor-pointer"
+                                        data-value="uiux">UI/UX дизайн</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-white font-medium mb-2">Сообщение</label>
+                            <textarea rows="4"
+                                class="w-full px-4 py-3 neomorphic rounded-lg text-white bg-transparent border-none focus:outline-none focus:ring-2 focus:ring-primary resize-none"
+                                placeholder="Расскажите о вашем проекте..."></textarea>
+                        </div>
+                        <button type="submit"
+                            class="w-full px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white font-semibold !rounded-button neon-glow hover:scale-105 transition-transform whitespace-nowrap">
+                            Отправить сообщение
+                        </button>
+                    </form>
+                </div>
+
+                <div class="animate-on-scroll">
+                    <div class="glass-effect p-8 rounded-2xl mb-8">
+                        <h3 class="font-space-grotesk text-2xl font-bold mb-6 text-white">Контактная информация</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <div
+                                    class="w-12 h-12 flex items-center justify-center bg-gradient-to-r from-primary to-secondary rounded-lg mr-4">
+                                    <i class="ri-mail-line text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-400 text-sm">Email</p>
+                                    <p class="text-white">maksotajsa415@gmail.com</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div
+                                    class="w-12 h-12 flex items-center justify-center bg-gradient-to-r from-secondary to-purple-500 rounded-lg mr-4">
+                                    <i class="ri-phone-line text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-400 text-sm">Телефон</p>
+                                    <p class="text-white">+7 (776) 075-81-53</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div
+                                    class="w-12 h-12 flex items-center justify-center bg-gradient-to-r from-purple-500 to-primary rounded-lg mr-4">
+                                    <i class="ri-map-pin-line text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-400 text-sm">Адрес</p>
+                                    <p class="text-white">Атырау, ул. Привокзальный, 13-5 мкр</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-effect p-8 rounded-2xl">
+                        <h3 class="font-space-grotesk text-2xl font-bold mb-6 text-white">Социальные сети</h3>
+                        <div class="flex space-x-4">
+                            <a href="https://www.instagram.com/murzagali_?igsh=aHBtdWR0ZHdhdWht&utm_source=qr"
+                                class="w-12 h-12 flex items-center justify-center bg-gradient-to-r from-primary to-secondary rounded-lg hover:scale-110 transition-transform">
+                                <i class="ri-instagram-line text-white"></i>
+                            </a>
+                            <a href="https://github.com/ENVEEEL20"
+                                class="w-12 h-12 flex items-center justify-center bg-gradient-to-r from-secondary to-purple-500 rounded-lg hover:scale-110 transition-transform">
+                                <i class="ri-github-line text-white"></i>
+                            </a>
+                            <a href="https://t.me/Enveeell"
+                                class="w-12 h-12 flex items-center justify-center bg-gradient-to-r from-purple-500 to-primary rounded-lg hover:scale-110 transition-transform">
+                                <i class="ri-telegram-line text-white"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <div class="font-space-grotesk text-2xl font-bold gradient-text mb-4">
+                    M.Asylbek
+                </div>
+                <p class="text-gray-400 mb-8">
+                    Создаю будущее цифрового дизайна
+                </p>
+                <div class="border-t border-gray-800 pt-8">
+                    <p class="text-gray-500 text-sm">
+                        © 2025 Asylbek Murzagaliev. Все права защищены.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal" id="portfolioModal">
+        <div class="glass-effect rounded-2xl max-w-4xl mx-4 p-8 relative">
+            <button
+                class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-gray-700 transition-colors"
+                id="closeModal">
+                <i class="ri-close-line text-white"></i>
+            </button>
+            <div id="modalContent">
+            </div>
+        </div>
+    </div>
+
+    <script id="scroll-indicator">
+        document.addEventListener('DOMContentLoaded', function () {
+            const scrollIndicator = document.getElementById('scrollIndicator');
+
+            window.addEventListener('scroll', function () {
+                const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+                scrollIndicator.style.width = scrolled + '%';
+            });
+        });
+    </script>
+
+    <script id="theme-toggle">
+        document.addEventListener('DOMContentLoaded', function () {
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+
+            themeToggle.addEventListener('click', function () {
+                body.classList.toggle('light-theme');
+                themeToggle.classList.toggle('active');
+            });
+        });
+    </script>
+
+    <script id="smooth-scroll">
+        document.addEventListener('DOMContentLoaded', function () {
+            const links = document.querySelectorAll('a[href^="#"]');
+
+            links.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script id="animate-on-scroll">
+        document.addEventListener('DOMContentLoaded', function () {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animated');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            document.querySelectorAll('.animate-on-scroll').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+
+    <script id="portfolio-filter">
+        document.addEventListener('DOMContentLoaded', function () {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const filter = this.dataset.filter;
+
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+
+                    portfolioItems.forEach(item => {
+                        if (filter === 'all' || item.dataset.category === filter) {
+                            item.classList.remove('hidden');
+                        } else {
+                            item.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
+    <script id="portfolio-modal">
+        document.addEventListener('DOMContentLoaded', function () {
+            const modal = document.getElementById('portfolioModal');
+            const modalContent = document.getElementById('modalContent');
+            const closeModal = document.getElementById('closeModal');
+            const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+            const projectData = {
+                '1': {
+                    title: 'Lunaria-WebSite',
+                    description: 'Создаются уникальные цифровые решения, которые помогают брендам выделяться в современном технологическом мире.',
+                    image: 'pr-img1.png',
+                    technologies: ['HTML', 'JS-CSS', 'ReadyAI'],
+                    client: 'Aidana Baurhanova.',
+                    year: '2024'
+                },
+                '2': {
+                    title: 'Major-in-Programming',
+                    description: 'Мобильное приложение для управления личными финансами с современным дизайном и удобной навигацией.',
+                    image: 'pr-img2.png',
+                    technologies: ['HTML', 'JS-CSS', 'ReadyAI'],
+                    client: 'Aidana Baurzhanova',
+                    year: '2024'
+                }
+            };
+
+            portfolioItems.forEach(item => {
+                item.addEventListener('click', function () {
+                    const projectId = this.dataset.project;
+                    const project = projectData[projectId];
+
+                    if (project) {
+                        modalContent.innerHTML = `
+                            <img src="${project.image}" alt="${project.title}" class="w-full h-64 object-cover object-top rounded-lg mb-6">
+                            <h2 class="font-space-grotesk text-3xl font-bold mb-4 text-white">${project.title}</h2>
+                            <p class="text-gray-300 mb-6">${project.description}</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <h3 class="font-space-grotesk text-lg font-bold mb-2 text-white">Технологии</h3>
+                                    <div class="flex flex-wrap gap-2">
+                                        ${project.technologies.map(tech => `<span class="px-3 py-1 bg-primary bg-opacity-20 text-primary rounded-full text-sm">${tech}</span>`).join('')}
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="font-space-grotesk text-lg font-bold mb-2 text-white">Детали проекта</h3>
+                                    <p class="text-gray-400 text-sm">Клиент: ${project.client}</p>
+                                    <p class="text-gray-400 text-sm">Год: ${project.year}</p>
+                                </div>
+                            </div>
+                        `;
+                        modal.classList.add('active');
+                    }
+                });
+            });
+
+            closeModal.addEventListener('click', function () {
+                modal.classList.remove('active');
+            });
+
+            modal.addEventListener('click', function (e) {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+        });
+    </script>
+
+    <script id="reviews-slider">
+        document.addEventListener('DOMContentLoaded', function () {
+            const slider = document.getElementById('reviewsSlider');
+            const dots = document.querySelectorAll('.slider-dot');
+            let currentSlide = 0;
+            const totalSlides = 3;
+
+            function updateSlider() {
+                const translateX = -currentSlide * (100 / totalSlides);
+                slider.style.transform = `translateX(${translateX}%)`;
+
+                dots.forEach((dot, index) => {
+                    if (index === currentSlide) {
+                        dot.classList.add('active');
+                        dot.classList.remove('bg-gray-600');
+                        dot.classList.add('bg-primary');
+                    } else {
+                        dot.classList.remove('active');
+                        dot.classList.remove('bg-primary');
+                        dot.classList.add('bg-gray-600');
+                    }
+                });
+            }
+
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', function () {
+                    currentSlide = index;
+                    updateSlider();
+                });
+            });
+
+            setInterval(() => {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                updateSlider();
+            }, 5000);
+        });
+    </script>
+
+    <script id="contact-form">
+        document.addEventListener('DOMContentLoaded', function () {
+            const projectTypeBtn = document.getElementById('projectTypeBtn');
+            const projectTypeDropdown = document.getElementById('projectTypeDropdown');
+
+            projectTypeBtn.addEventListener('click', function () {
+                projectTypeDropdown.classList.toggle('hidden');
+            });
+
+            document.addEventListener('click', function (e) {
+                if (!projectTypeBtn.contains(e.target) && !projectTypeDropdown.contains(e.target)) {
+                    projectTypeDropdown.classList.add('hidden');
+                }
+            });
+
+            projectTypeDropdown.addEventListener('click', function (e) {
+                if (e.target.dataset.value) {
+                    projectTypeBtn.querySelector('span').textContent = e.target.textContent;
+                    projectTypeDropdown.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+
+    <script>
+        function downloadResume() {
+            const link = document.createElement("a");
+            link.href = "resume.pdf";               // путь к твоему файлу
+            link.download = "Резюме-Асылбек Мурзагалиев.pdf"; // имя файла при скачивании
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+
+</html>
